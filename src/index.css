@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg{
+    background-image: url('./data/image_bg.avif');
+    background-position: center;
+    background-size: cover;
+}
