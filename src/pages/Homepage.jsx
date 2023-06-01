@@ -15,7 +15,7 @@ const Homepage = ({ token }) => {
         const { data } = await supabase.from('users').select('*');
         setUsers(data)
     }
-    console.log('userEdit',userEdit);
+    console.log('userEdit', userEdit);
     const handleChange = (e) => {
         setUser(prevFormData => {
             return {
@@ -39,7 +39,7 @@ const Homepage = ({ token }) => {
     }
     const delUser = async (item) => {
         console.log("🚀 ~ file: Homepage.jsx:40 ~ delUser ~ item:", item)
-        
+
         const { data, error } = await supabase.from('users').delete().eq('id', item.id);
         fetchUsers();
         if (error) {
@@ -52,9 +52,9 @@ const Homepage = ({ token }) => {
     // edit user
 
     const editUser = async (item) => {
-                setUserEdit({ name: item.name, age: item.age,id: item.id });
-            }
-    
+        setUserEdit({ name: item.name, age: item.age, id: item.id });
+    }
+
     const updateUser = async (userId) => {
         const { data, error } = await supabase
             .from('users')
@@ -82,8 +82,8 @@ const Homepage = ({ token }) => {
         {
             title: 'No.',
             key: 'id',
-            with:'10%',
-            render: (text, object, index) =>   index + 1
+            with: '10%',
+            render: (text, object, index) => index + 1
 
         },
         {
@@ -122,33 +122,42 @@ const Homepage = ({ token }) => {
                 <Button onClick={handleLogout} type='primary'>Logout</Button>
 
             </div>
-            <div className='w-1/2 mx-auto'>
-                <form onSubmit={createUser}>
-                    <div className='flex'>
-                        <Input className='border-[1px] border-black p-1 px-2 mx-1' type="text" placeholder='Name' name='name'
-                            onChange={(e) => handleChange(e)}
-                        />
-                        <Input className='border-[1px] border-black p-1 mx-1' type="number" placeholder='Age' name='age'
-                            onChange={(e) => handleChange(e)}
-                        />
-                    <button type='submit'  className='border-[1px] border-black px-2 py-1 rounded-sm w-[5rem]'>Create user</button>
-                    </div>
-                </form>
-                {/* edit */}
-                <form onSubmit={() => updateUser(userEdit.id)} className='mt-5'>
-                    <div className='flex'>
-                    <Input className='border-[1px] border-black p-1 px-2 mx-1' 
-                    type="text" value={userEdit.name} name='name'
-                        onChange={(e) => handleChangeEdit(e)}
-                    />
-                    <Input className='border-[1px] border-black p-1 mx-1' 
-                    type="number" value={userEdit.age} name='age'
-                        onChange={(e) => handleChangeEdit(e)}
-                    />
-                    <button type='submit' className='border-[1px] border-black px-2 py-1 rounded-sm'>Save change</button>
+            <div className='w-2/3 mx-auto'>
+                <div className='w-2/3 mx-auto'>
+                    <form onSubmit={createUser}>
+                        <div className='flex items-center'>
+                            <Input className='border-[1px] border-black p-1 px-2 mx-1' type="text" placeholder='Name' name='name'
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <Input className='border-[1px] border-black p-1 mx-1' type="number" placeholder='Age' name='age'
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <div>
+                                <button type='submit' className='border-[1px] border-[#3C93FF] px-2 py-2 rounded-md  w-[6rem] bg-[#3C93FF] text-white'>Create user</button>
 
-                    </div>
-                </form>
+                            </div>
+                        </div>
+                    </form>
+                    {/* edit */}
+                    <form onSubmit={() => updateUser(userEdit.id)} className='mt-5'>
+                        <div className='flex items-center'>
+                            <Input className='border-[1px] border-black p-1 px-2 mx-1'
+                                type="text" value={userEdit.name} name='name'
+                                onChange={(e) => handleChangeEdit(e)}
+                            />
+                            <Input className='border-[1px] border-black p-1 mx-1'
+                                type="number" value={userEdit.age} name='age'
+                                onChange={(e) => handleChangeEdit(e)}
+                            />
+                            <div>
+                                <button type='submit' className='border-[1px] border-[#3C93FF] px-2 py-2 rounded-lg  w-[6rem] bg-[#3C93FF] text-white'>Save change</button>
+
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
                 <div className='mt-5'>
                     <Table dataSource={users} columns={columns} />
 
